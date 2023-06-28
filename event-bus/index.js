@@ -10,19 +10,19 @@ const PORT = 4005;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/events', (req, res) => {
+app.post('/events', async (req, res) => {
   const event = req.body;
 
-  axios.post('http://localhost:4000/events', event).catch((err) => {
+  await axios.post('http://localhost:4000/events', event).catch((err) => {
     console.log(err);
   });
 
-  axios.post('http://localhost:4001/events', event).catch((err) => {
+  await axios.post('http://localhost:4001/events', event).catch((err) => {
     console.log(err);
   });
-  // axios.post('http://localhost:4002/events', event).catch((err) => {
-  //   console.log(err);
-  // });
+  await axios.post('http://localhost:4002/events', event).catch((err) => {
+    console.log(err);
+  });
 
   res.status(201).send('Status: OK');
 
