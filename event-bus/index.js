@@ -21,17 +21,16 @@ app.post('/events', (req, res) => {
   const event = req.body;
   events.push(event);
 
-  axios.post('http://localhost:4000/events', event).catch((err) => {
+  axios.post('http://posts-clusterip-srv:4000/events', event).catch((err) => {
     console.log(err);
   });
-
-  axios.post('http://localhost:4001/events', event).catch((err) => {
+  axios.post('http://comments-srv:4001/events', event).catch((err) => {
     console.log(err);
   });
-  axios.post('http://localhost:4002/events', event).catch((err) => {
+  axios.post('http://query-srv:4002/events', event).catch((err) => {
     console.log(err);
   });
-  axios.post('http://localhost:4003/events', event).catch((err) => {
+  axios.post('http://moderation-srv:4003/events', event).catch((err) => {
     console.log(err);
   });
 
@@ -42,17 +41,6 @@ app.post('/events', (req, res) => {
   // }
 });
 
-app.listen(PORT, async () => {
-  console.log(`Listening on port ${PORT}`);
-  try {
-    const res = await axios.get('http://localhost:4005/events');
-
-    for (let event of res.data) {
-      console.log('Processing event:', event.type);
-
-      handleEvent(event.type, event.data);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
+app.listen(4005, () => {
+  console.log('Listening on 4005');
 });
