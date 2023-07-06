@@ -79,7 +79,7 @@ app.listen(4002, async () => {
   try {
     // grab all events as soon as server is online
     // in case it was off at any point
-    const res = await axios.get('http://localhost:4005/events');
+    const res = await axios.get('http://event-bus-srv:4005/events');
     for (let event of res.data) {
       console.log('Processing Event: ', event.type);
       handleEvent(event.type, event.data);
