@@ -19,18 +19,18 @@ app.post('/events', (req, res) => {
   res.status(200).send({});
 });
 
-app.get('/posts', (req, res) => {
-  res.status(200).send(posts);
-});
+// app.get('/posts', (req, res) => {
+//   res.status(200).send(posts);
+// });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts/create', async (req, res) => {
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
   posts[id] = {
     id,
     title,
   };
-  await axios.post('http://localhost:4005/events', {
+  await axios.post('http://event-bus-srv:4005/events', {
     type: 'PostCreated',
     data: { id, title },
   });
@@ -39,5 +39,6 @@ app.post('/posts', async (req, res) => {
 });
 
 app.listen(PORT, () => {
+  console.log('v1000');
   console.log(`Listening on port ${PORT}`);
 });
