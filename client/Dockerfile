@@ -1,4 +1,9 @@
 FROM node:alpine
+# create-react-app has a bug that does not
+# allow Docker Desktop to run it
+# Must add these two environment variables 
+ENV CI=true
+ENV WDS_SOCKET_PORT=0
 
 WORKDIR /app
 COPY package.json ./
